@@ -1,0 +1,77 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cz2001_tutorial4_q2;
+import java.util.*;
+public class main {
+    public static final int SIZE = 8;
+    public static ArrayList<Integer> fMin = new ArrayList();
+    public static int max;
+    public static int comparisons;
+    public static void main(String[] args) {
+        // TODO code application logic here
+        int[] arr = new int[SIZE];
+        int[] arrMin = new int[SIZE/2];
+        arr[0] = 5;
+        arr[1] = 6;
+        arr[2] = 2;
+        arr[3] = 7;
+        arr[4] = 9;
+        arr[5] = 1;
+        arr[6] = 3;
+        arr[7] = 4;
+        comparisons = 0;
+        System.out.println(Max(arr, 0, 7));
+        System.out.println(comparisons);
+        System.out.println(fMin);
+        for (int i=0; i < fMin.size(); i ++) {
+            arrMin[i] = fMin.get(i);
+        }
+        System.out.println(Min(arrMin, 0, 3));
+        System.out.println(comparisons);
+    }
+    public static int Max(int[] ar, int start, int end){
+        int mid = (start+end)/2;
+        int u, v;
+        if (end == start)
+            return ar[start];
+        else {
+            u = Max(ar, start, mid);
+            v = Max(ar, mid+1, end);
+        }
+        if (u>v){
+            comparisons ++;
+            if (end - start <= 1){
+                fMin.add(v);
+            }
+            return u;
+        }
+        else {
+            comparisons ++;
+            if (end - start <= 1){
+                fMin.add(u);
+            }
+            return v;
+        }
+    }
+    public static int Min(int[] ar, int start, int end){
+        int mid = (start+end)/2;
+        int r, q;
+        if (end == start)
+            return ar[start];
+        else {
+            r = Max(ar, start, mid);
+            q = Max(ar, mid+1, end);
+        }
+        if (r<q){
+            comparisons ++;
+            return r;
+        }
+        else {
+            comparisons ++;
+            return q;
+        }
+    }
+}
